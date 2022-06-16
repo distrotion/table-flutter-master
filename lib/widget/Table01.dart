@@ -3,18 +3,40 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/bloc-data01/event.dart';
 import '../data/model.dart';
+import 'Table01VAR.dart';
 
-String _searchResult = '';
-
-class TableBodyMaster01 extends StatefulWidget {
-  TableBodyMaster01({Key? key, this.data}) : super(key: key);
+class TableMaster01MAIN extends StatelessWidget {
+  TableMaster01MAIN({Key? key, this.data}) : super(key: key);
   List<dataset>? data;
 
   @override
-  _TableBodyMaster01State createState() => _TableBodyMaster01State();
+  Widget build(BuildContext context) {
+    return TableMaster01SEARCH(
+      data: data,
+    );
+  }
 }
 
-class _TableBodyMaster01State extends State<TableBodyMaster01> {
+class TableMaster01SEARCH extends StatelessWidget {
+  TableMaster01SEARCH({Key? key, this.data}) : super(key: key);
+  List<dataset>? data;
+  @override
+  Widget build(BuildContext context) {
+    return TableMaster01BODY(
+      data: data,
+    );
+  }
+}
+
+class TableMaster01BODY extends StatefulWidget {
+  TableMaster01BODY({Key? key, this.data}) : super(key: key);
+  List<dataset>? data;
+
+  @override
+  _TableMaster01BODYState createState() => _TableMaster01BODYState();
+}
+
+class _TableMaster01BODYState extends State<TableMaster01BODY> {
   int _sortColumnIndex = 0;
   bool _sortAscending = true;
 
@@ -53,7 +75,7 @@ class _TableBodyMaster01State extends State<TableBodyMaster01> {
                         hintText: 'Search', border: InputBorder.none),
                     onChanged: (value) {
                       setState(() {
-                        _searchResult = value;
+                        Table01VAR.searchResult = value;
                       });
                     }),
                 trailing: IconButton(
@@ -61,7 +83,7 @@ class _TableBodyMaster01State extends State<TableBodyMaster01> {
                   onPressed: () {
                     setState(() {
                       controller.clear();
-                      _searchResult = '';
+                      Table01VAR.searchResult = '';
                     });
                   },
                 ),
@@ -140,18 +162,18 @@ class _MyData extends DataTableSource {
     _data_exp = [];
 
     for (int i = 0; i < _data.length; i++) {
-      if (_data[i].f01.toLowerCase().contains(_searchResult) ||
-          _data[i].f02.toLowerCase().contains(_searchResult) ||
-          _data[i].f03.toLowerCase().contains(_searchResult) ||
-          _data[i].f04.toLowerCase().contains(_searchResult) ||
-          _data[i].f05.toLowerCase().contains(_searchResult)) {
+      if (_data[i].f01.toLowerCase().contains(Table01VAR.searchResult) ||
+          _data[i].f02.toLowerCase().contains(Table01VAR.searchResult) ||
+          _data[i].f03.toLowerCase().contains(Table01VAR.searchResult) ||
+          _data[i].f04.toLowerCase().contains(Table01VAR.searchResult) ||
+          _data[i].f05.toLowerCase().contains(Table01VAR.searchResult)) {
         _data_exp.add(_data[i]);
       }
     }
   }
 
   void _sort<T>(Comparable<T> Function(dataset d) getField, bool ascending) {
-    _data_exp.sort((dataset a, dataset b) {
+    _data.sort((dataset a, dataset b) {
       final Comparable<T> aValue = getField(a);
       final Comparable<T> bValue = getField(b);
       return ascending

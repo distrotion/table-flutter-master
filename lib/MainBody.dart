@@ -16,7 +16,7 @@ class BlocTableBody extends StatelessWidget {
         create: (_) => DataSetBloc(),
         child: BlocBuilder<DataSetBloc, List<dataset>>(
           builder: (context, data) {
-            return TableBodyMaster01(data: data);
+            return TableMaster01MAIN(data: data);
           },
         ));
   }
