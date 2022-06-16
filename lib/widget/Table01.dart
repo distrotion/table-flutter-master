@@ -3,7 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/bloc-data01/event.dart';
 import '../data/model.dart';
-import 'Table01VAR.dart';
+
+class _TableMaster01VAR {
+  static String searchResult = '';
+}
 
 class TableMaster01MAIN extends StatelessWidget {
   TableMaster01MAIN({Key? key, this.data}) : super(key: key);
@@ -75,7 +78,7 @@ class _TableMaster01BODYState extends State<TableMaster01BODY> {
                         hintText: 'Search', border: InputBorder.none),
                     onChanged: (value) {
                       setState(() {
-                        Table01VAR.searchResult = value;
+                        _TableMaster01VAR.searchResult = value;
                       });
                     }),
                 trailing: IconButton(
@@ -83,7 +86,7 @@ class _TableMaster01BODYState extends State<TableMaster01BODY> {
                   onPressed: () {
                     setState(() {
                       controller.clear();
-                      Table01VAR.searchResult = '';
+                      _TableMaster01VAR.searchResult = '';
                     });
                   },
                 ),
@@ -162,11 +165,11 @@ class _MyData extends DataTableSource {
     _data_exp = [];
 
     for (int i = 0; i < _data.length; i++) {
-      if (_data[i].f01.toLowerCase().contains(Table01VAR.searchResult) ||
-          _data[i].f02.toLowerCase().contains(Table01VAR.searchResult) ||
-          _data[i].f03.toLowerCase().contains(Table01VAR.searchResult) ||
-          _data[i].f04.toLowerCase().contains(Table01VAR.searchResult) ||
-          _data[i].f05.toLowerCase().contains(Table01VAR.searchResult)) {
+      if (_data[i].f01.toLowerCase().contains(_TableMaster01VAR.searchResult) ||
+          _data[i].f02.toLowerCase().contains(_TableMaster01VAR.searchResult) ||
+          _data[i].f03.toLowerCase().contains(_TableMaster01VAR.searchResult) ||
+          _data[i].f04.toLowerCase().contains(_TableMaster01VAR.searchResult) ||
+          _data[i].f05.toLowerCase().contains(_TableMaster01VAR.searchResult)) {
         _data_exp.add(_data[i]);
       }
     }
